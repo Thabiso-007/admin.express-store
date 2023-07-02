@@ -1,0 +1,49 @@
+.max-width-container {
+    background: -webkit-linear-gradient(110deg, var(--color-00DCFF) 60%, var(--color-0094B9) 60%);
+    background: -o-linear-gradient(110deg, var(--color-00DCFF) 60%, var(--color-0094B9) 60%);
+    background: -moz-linear-gradient(110deg, var(--color-00DCFF) 60%, var(--color-0094B9) 60%);
+    background: linear-gradient(110deg, var(--color-00DCFF) 60%, var(--color-0094B9) 60%);
+    max-width: 100%;
+    height: 100vh;
+    // position: fixed;
+    margin: 0;
+
+    .wrapper {
+        background-color: var(--color-trans-2);
+        margin: 0;
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        
+        .container {
+            background-color: var(--color--white);
+            padding: 100px 0px 0px 0px; 
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            width: 80%;
+            height: 80%;
+            border-radius: 5px;
+
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 30%;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 32px;
+                font-weight: 700;
+            }
+
+            p {
+                text-align: center;
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }
+    }
+}

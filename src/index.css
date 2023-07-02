@@ -1,0 +1,12 @@
+:root {
+  --color--white: #fff;
+  --color-A9A9A9: #A9A9A9;
+  --color-black: #000;
+  --color-017D9E: #017D9E; 
+  --color-00DCFF: #00DCFF;
+  --color-0094B9: #0094B9;
+  --color-trans-1: rgba(255, 255, 255, 0.3);
+  --color-trans-2: rgb(0, 0, 0, 0.7);
+  --color-red: red;
+  --color-green: green;
+}

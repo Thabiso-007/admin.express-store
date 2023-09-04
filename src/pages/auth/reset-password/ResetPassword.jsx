@@ -28,7 +28,7 @@ const ResetPassword = () => {
                       <span class="input-group-text" id="addon-wrapping"><FaLock /></span>
                       <input type="password" class="form-control" placeholder="Confirm your password" aria-label="password" aria-describedby="addon-wrapping" /> 
                     </div>
-                    <button type="button" class="btn btn-primary w-100 mt-3">Submit</button>
+                    <button type="button" className="btn btn-primary w-100 mt-3">Submit</button>
                     <hr />
                     <div>
                       <Link 

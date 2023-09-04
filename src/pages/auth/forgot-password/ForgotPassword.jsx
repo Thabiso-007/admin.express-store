@@ -24,7 +24,7 @@ export const ForgotPassword = () => {
                       <span class="input-group-text" id="addon-wrapping"><MdEmail /></span>
                       <input type="email" class="form-control" placeholder="Enter your email" aria-label="email" aria-describedby="addon-wrapping" /> 
                     </div>
-                    <button type="button" class="btn btn-primary w-100 mt-3">Submit</button>
+                    <button type="button" className="btn btn-primary w-100 mt-3">Submit</button>
                     <hr />
                     <div>
                       <Link 

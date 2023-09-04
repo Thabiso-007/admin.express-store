@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Login from './pages/auth/login/Login';
+import ResetPassword from './pages/auth/reset-password/ResetPassword';
+import NotFound from './pages/errors/404/NotFound';
+import Layout from './components/layout/Layout';
+import Dashboard from './pages/admin/dashboard/Dashboard';
+import Customer from './pages/admin/customer/Customer';
+import ForgotPassword from './pages/auth/forgot-password/ForgotPassword';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='*' element={<NotFound />} />
+        <Route path='/admin' element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path='customer' element={<Customer />} />
+        </Route> 
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,39 +1,78 @@
 import React from 'react';
-import { MdEmail } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import {
+	FaAngleRight,
+	FaAngleLeft, 
+	FaChartBar, 
+	FaThLarge, 
+	FaShoppingCart, 
+	FaCog,
+	FaSignOutAlt,
+	FaBars
+} from 'react-icons/fa';
 
 import logo from '../../assets/logo/logo.png';
 
-const SideBar = () => {
+const ICON_SIZE = 14;
+
+const SideBar = ({ visible, show }) => {
   return (
-    <div className="admin-background sidebar p-0">
-      <div className="p-0">
-        <img className="admin-logo" src={logo} alt="logo" />        
-      </div>
-      <hr className="text-dark"/>
-      <div className="list-group list-group-flush">
-        <Link to="/admin" className="d-flex gap-2 list-group-item py-2">
-          <MdEmail />
-          <p>Dashboard</p>
-        </Link>
-        <Link to="/admin" className="d-flex gap-2 list-group-item py-2">
-          <MdEmail />
-          <p>Dashboard</p>
-        </Link>
-        <Link to="/admin" className="d-flex gap-2 list-group-item py-2">
-          <MdEmail />
-          <p>Dashboard</p>
-        </Link>  
-        <Link to="/admin" className="d-flex gap-2 list-group-item py-2">
-          <MdEmail />
-          <p>Dashboard</p>
-        </Link>
-        <Link to="/admin" className="d-flex gap-2 list-group-item py-2">
-          <MdEmail />
-          <p>Dashboard</p>
-        </Link>
-      </div>
-    </div>
+    <>
+			<div className="mobile-nav">
+				<button
+					className="mobile-nav-btn"
+					onClick={() => show(!visible)}
+				>
+					<FaBars size={24}  />
+				</button>
+			</div>
+			<nav className={!visible ? 'navbar' : ''}>
+				<button
+					type="button"
+					className="nav-btn"
+					onClick={() => show(!visible)}
+				>
+					{ !visible
+						? <FaAngleRight size={30} /> : <FaAngleLeft size={30} />}
+				</button>
+				<div>
+					<NavLink
+						className="logo"
+						to="/"
+					>
+							<img
+								src={logo}
+								alt="logo"
+							/>
+					</NavLink>
+					<div className="links nav-top">
+						<NavLink to="/dashboard" className="nav-link">
+							<FaThLarge size={ICON_SIZE} />
+							<span>Dashboard</span>
+						</NavLink>
+						<NavLink to="/analytics" className="nav-link">
+							<FaChartBar size={ICON_SIZE} />
+							<span>Analytics </span>
+						</NavLink>
+						<NavLink to="/orders" className="nav-link">
+							<FaShoppingCart size={ICON_SIZE} />
+							<span>Orders</span> 
+						</NavLink>
+					</div>
+				</div>
+
+				<div className="links">
+					<NavLink to="/settings" className="nav-link">
+						<FaCog size={ICON_SIZE} />
+						<span>Settings</span> 
+					</NavLink>
+					<NavLink to="/Sign-out" className="nav-link">
+						<FaSignOutAlt size={ICON_SIZE} />
+						<span>Logout</span> 
+					</NavLink>
+				</div>
+			</nav>
+		</>
   )
 }
 

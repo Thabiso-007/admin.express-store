@@ -13,7 +13,7 @@ export const ForgotPassword = () => {
         <div className="transparent">
           <div className="container">
             <div className="row vh-100 align-items-center justify-content-center">
-              <div className="col-sm-10 col-md-8 col-lg-6 bg-secondary rounded p-4 shadow">
+              <div className="col-sm-10 col-md-8 col-lg-6 bg-dark rounded p-4 shadow">
                 <div className="row justify-content-center mb-4">
                   <img src={logo} alt='logo' className="w-25" />
                   <h3 className="text-center text-white">Admin Panel</h3>
@@ -24,7 +24,7 @@ export const ForgotPassword = () => {
                       <span class="input-group-text" id="addon-wrapping"><MdEmail /></span>
                       <input type="email" class="form-control" placeholder="Enter your email" aria-label="email" aria-describedby="addon-wrapping" /> 
                     </div>
-                    <button type="button" className="btn btn-primary w-100 mt-3">Submit</button>
+                    <button type="button" className="btn btn-warning w-100 mt-3">Submit</button>
                     <hr />
                     <div>
                       <Link 

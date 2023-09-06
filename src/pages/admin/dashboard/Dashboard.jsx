@@ -1,8 +1,19 @@
 import React from 'react'
 
+import Meta from '../../../components/meta/Meta'
+
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <>
+      <Meta title="Dashboard" />
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            Dashboard
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 

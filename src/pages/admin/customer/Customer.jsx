@@ -1,8 +1,19 @@
 import React from 'react'
 
+import Meta from '../../../components/meta/Meta'
+
 const Customer = () => {
   return (
-    <div>Customer</div>
+    <>
+      <Meta title="Customers" />
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            Customers
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 

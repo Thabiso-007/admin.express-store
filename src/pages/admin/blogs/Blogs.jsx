@@ -2,14 +2,14 @@ import React from 'react'
 
 import Meta from '../../../components/meta/Meta'
 
-const Dashboard = () => {
+const Blogs = () => {
   return (
     <>
-      <Meta title="Dashboard" />
+      <Meta title="Blogs" />
       <div className="container">
         <div className="row">
           <div className="col">
-            Dashboard
+            Categories
           </div>
         </div>
       </div>
@@ -17,4 +17,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Blogs

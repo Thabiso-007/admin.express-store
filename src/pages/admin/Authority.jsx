@@ -1,15 +1,15 @@
 import React from 'react'
 
-import Meta from '../../../components/meta/Meta'
+import Meta from '../../components/meta/Meta'
 
-const Dashboard = () => {
+const Authority = () => {
   return (
     <>
-      <Meta title="Dashboard" />
+      <Meta title="Authorities" />
       <div className="container">
         <div className="row">
           <div className="col">
-            Dashboard
+            Authorities
           </div>
         </div>
       </div>
@@ -17,4 +17,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Authority

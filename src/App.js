@@ -14,7 +14,8 @@ import Categories from './pages/admin/categories/Categories';
 import Brand from './pages/admin/brand/Brand';
 import BlogCategories from './pages/admin/blog-categories/BlogCategories';
 import Enquiries from './pages/admin/enquiries/Enquiries';
-import Authority from './pages/admin/Authority';
+import Authority from './pages/admin/authorities/Authorities';
+import Coupons from './pages/admin/coupons/Coupons';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='blog-categories' element={<BlogCategories />} />
           <Route path='enquiries' element={<Enquiries />} />
           <Route path='authorities' element={<Authority />} />
+          <Route path='coupons' element={<Coupons />} />
         </Route> 
       </Routes>
     </BrowserRouter>

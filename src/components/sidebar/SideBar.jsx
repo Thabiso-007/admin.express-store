@@ -12,13 +12,13 @@ import {
 	FaBlog
 } from 'react-icons/fa';
 import { AiTwotoneCustomerService } from 'react-icons/ai'
-import { BiSolidCategory } from 'react-icons/bi'
+import { BiSolidCategory, BiSolidCoupon } from 'react-icons/bi'
 import { TfiLayoutListThumbAlt } from 'react-icons/tfi'
 import { MdEmail, MdAdminPanelSettings } from 'react-icons/md'
 
 import logo from '../../assets/logo/logo.png';
 
-const ICON_SIZE = 14;
+const ICON_SIZE = 10;
 
 const SideBar = ({ visible, show }) => {
   return (
@@ -47,7 +47,7 @@ const SideBar = ({ visible, show }) => {
 					<img src={logo} alt="logo" />
 				</Link>
 				<div className="links nav-top">
-					<NavLink to="" activeClassName="active" className="nav-link">
+					<NavLink to="" activeclassname="active" className="nav-link">
 						<FaThLarge size={ICON_SIZE} />
 						<span>Dashboard</span>
 					</NavLink>
@@ -82,6 +82,10 @@ const SideBar = ({ visible, show }) => {
 					<NavLink to="enquiries" className="nav-link">
 						<MdEmail size={ICON_SIZE} />
 						<span>Enquiries</span> 
+					</NavLink>
+					<NavLink to="coupons" className="nav-link">
+						<BiSolidCoupon size={ICON_SIZE} />
+						<span>Coupons</span> 
 					</NavLink>
 				</div>
 			</div>

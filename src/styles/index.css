@@ -1,65 +1,73 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
 
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: var(--gray-color);
+}
+
 :root {
-    --black-color: #000000;
-    --white-color: #FFFFFF;
-    --orange-color: #fdcd3b;
-    --yellow-color: #ffed4b;
-    --gray-color: #6c757d;
-    --light-gray-color: #f1f1f1;
-    --trans-07-color: rgba(0, 0, 0, 0.7);
-    --trans-02-color: rgba(0, 0, 0, 0.2);
-    --red-color: red;
-  }
+  --black-color: #000000;
+  --white-color: #FFFFFF;
+  --orange-color: #fdcd3b;
+  --yellow-color: #ffed4b;
+  --gray-color: #6c757d;
+  --light-gray-color: #f1f1f1;
+  --trans-07-color: rgba(0, 0, 0, 0.7);
+  --trans-02-color: rgba(0, 0, 0, 0.2);
+  --red-color: red;
+}
   
-  .float-right {
-    float: right;
-  }
+.float-right {
+  float: right;
+}
   
-  .float-left {
-    float: left;
-  }
+.float-left {
+  float: left;
+}
   
-  .link {
-    text-decoration: none;
-    color: var(--white-color);
-  }
-  .auth-background {
-    background: linear-gradient(110deg, var(--orange-color) 60%, var(--yellow-color) 60%);
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-  }
+.link {
+  text-decoration: none;
+  color: var(--white-color);
+}
+
+.auth-background {
+  background: linear-gradient(110deg, var(--orange-color) 60%, var(--yellow-color) 60%);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
   
-  .transparent {
-    background-color: var(--trans-07-color);
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-  }
+.transparent {
+  background-color: var(--trans-07-color);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
   
-  .error {
+.error {
     color: var(--red-color);
     font-weight: 300;
-  }
+}
 
-*{
+* { 
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
 	font-family: 'Open Sans', sans-serif;
 }
 
-.App{
+.App {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100vh;
 }
 
-.page{
+.page {
 	flex-basis: 100%;
 	display: flex;
   position: absolute;
@@ -69,7 +77,7 @@
 }
 
 .page-with-navbar{
-	margin-left: 15%;
+  margin-left: 15%;
 }
 
 @media only screen and (max-width: 768px){

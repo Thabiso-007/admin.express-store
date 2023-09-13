@@ -10,6 +10,7 @@ nav{
 	background-color: var(--black-color);
 	padding:2rem 1rem 1rem 1rem;
 	transition: transform 1s;
+	position: fixed;
 }
 
 .navbar{

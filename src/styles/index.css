@@ -80,6 +80,23 @@ body {
   margin-left: 15%;
 }
 
+.title {
+  font: 28px;
+  font-family: Roboto !important;
+  color: var(--color-212529);
+}
+
+.sub-title {
+  font: 16px;
+  font-family: Roboto !important;
+  color: var(--color-212529);
+}
+.desc {
+  font: 14px;
+  font-family: Roboto !important;
+  color: var(--color-828599);
+}
+
 @media only screen and (max-width: 768px){
 	.page-with-navbar{
 		width: 100%;

@@ -68,12 +68,12 @@ const Products = () => {
   return (
     <>
       <Meta title="Products" />
-      <div>
+      <div className="container">
         {/* product modal starts */}
         <AddProduct />
         {/* product modal end */}
-        <hr width="100%"/>
-        <div className="w-100">
+        <hr />
+        <div>
           <h2 className="fw-bold mb-4 text-white text-center">Products</h2>
           <div>
             <Table columns={columns} dataSource={data1} />

@@ -5,11 +5,11 @@ import Dropzone from "react-dropzone";
 
 const AddProduct = () => {
     return (
-        <>
-            <div className="text-center">
-          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add product</button>
+      <>
+        <div className="text-center">
+          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProduct" data-bs-whatever="@getbootstrap">Add product</button>
         </div>
-        <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="addProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

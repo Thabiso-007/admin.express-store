@@ -118,8 +118,8 @@ const Dashboard = () => {
   return (
     <>
       <Meta title="Dashboard" />
-      <div>
-        <h2 className="fw-bold mb-4">Dashboard</h2>
+      <div className="container">
+        <h2 className="fw-bold mb-4 text-white text-center">Dashboard</h2>
         <div className="d-flex justify-content-between align-items-center gap-3">
           <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
             <div>

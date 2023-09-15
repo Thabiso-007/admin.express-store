@@ -60,7 +60,7 @@ const Enquiries = () => {
         <>
           <Link
             className="ms-3 fs-3 text-danger"
-            to={''}
+            to={'123'}
           >
             <AiOutlineEye />
           </Link>

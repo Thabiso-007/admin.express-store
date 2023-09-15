@@ -16,6 +16,9 @@ import BlogCategories from './pages/admin/blog-categories/BlogCategories';
 import Enquiries from './pages/admin/enquiries/Enquiries';
 import Authority from './pages/admin/authorities/Authorities';
 import Coupons from './pages/admin/coupons/Coupons';
+import Colors from './pages/admin/color/Colors';
+import ViewOrder from './pages/admin/view-order/ViewOrder';
+import ViewEnquiry from './pages/admin/view-enquiry/ViewEnquiry';
 
 function App() {
   return (
@@ -30,13 +33,16 @@ function App() {
           <Route path='customers' element={<Customer />} />
           <Route path='products' element={<Products />} />
           <Route path='orders' element={<Orders />} />
+          <Route path='orders/:id' element={<ViewOrder />} />
           <Route path='brand' element={<Brand />} />
           <Route path='categories' element={<Categories />} />
           <Route path='blogs' element={<Blogs />} />
           <Route path='blog-categories' element={<BlogCategories />} />
           <Route path='enquiries' element={<Enquiries />} />
+          <Route path='enquiries/:id' element={<ViewEnquiry />} />
           <Route path='authorities' element={<Authority />} />
           <Route path='coupons' element={<Coupons />} />
+          <Route path='colors' element={<Colors />} />
         </Route> 
       </Routes>
     </BrowserRouter>

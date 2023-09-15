@@ -25,14 +25,24 @@ const columns = [
 
 
 const Customer = () => {
+  const data1 = [];
+  for (let i = 0; i < 3; i++) {
+    
+      data1.push({
+        key: i + 1,
+        name: "Thabiso Hlatshwayo",
+        email: "thabiso.hlatshwayo24@gmail.com",
+        mobile: "0614567028",
+      });
+  }
+
   return (
     <>
       <Meta title="Customers" />
       <div className="container">
-        <div className="row">
-          <div className="col">
-            Customers
-          </div>
+        <h3 className="fw-bold mb-4 text-white text-center">Customers</h3>
+        <div>
+          <Table columns={columns} dataSource={data1} />
         </div>
       </div>
     </>

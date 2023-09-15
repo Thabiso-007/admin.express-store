@@ -41,7 +41,7 @@ const Orders = () => {
       key: i + 1,
       name: "Thabiso",
       product: (
-        <Link to={'/'}>
+        <Link to={'123'}>
           View Orders
         </Link>
       ),
@@ -49,7 +49,7 @@ const Orders = () => {
       date: "12 June 2021",
       action: (
         <>
-          <Link to="/" className=" fs-3 text-danger">
+          <Link to="orders/123" className=" fs-3 text-danger">
             <BiEdit />
           </Link>
           <Link className="ms-3 fs-3 text-danger" to="/">

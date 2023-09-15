@@ -15,6 +15,7 @@ import { AiTwotoneCustomerService } from 'react-icons/ai'
 import { BiSolidCategory, BiSolidCoupon } from 'react-icons/bi'
 import { TfiLayoutListThumbAlt } from 'react-icons/tfi'
 import { MdEmail, MdAdminPanelSettings } from 'react-icons/md'
+import { IoColorFillSharp } from 'react-icons/io5'
 
 import logo from '../../assets/logo/logo.png';
 
@@ -86,6 +87,10 @@ const SideBar = ({ visible, show }) => {
 					<NavLink to="coupons" className="nav-link">
 						<BiSolidCoupon size={ICON_SIZE} />
 						<span>Coupons</span> 
+					</NavLink>
+					<NavLink to="colors" className="nav-link">
+						<IoColorFillSharp size={ICON_SIZE} />
+						<span>Colors</span> 
 					</NavLink>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
@@ -31,7 +31,7 @@ let schema = yup.object().shape({
 const AddProduct = () => {
   const dispatch = useDispatch();
   const [color, setColor] = useState([]);
-  const [images, setImages] = useState([]);
+  //const [images, setImages] = useState([]);
 
   useEffect(() => {
     dispatch(getBrands());
@@ -61,13 +61,16 @@ const AddProduct = () => {
       value: i._id,
     });
   });
-  const img = [];
+
+  const img = useMemo(() => [], []);
+
   imgState.forEach((i) => {
     img.push({
       public_id: i.public_id,
       url: i.url,
     });
   });
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -90,10 +93,12 @@ const AddProduct = () => {
       }, 3000);
     },
   });
+
   useEffect(() => {
     formik.values.color = color ? color : " ";
     formik.values.images = img;
   }, [color, img, formik.values]);
+
   const handleColors = (e) => {
     setColor(e);
     console.log(color);

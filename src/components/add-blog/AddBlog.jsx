@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 
@@ -25,7 +25,6 @@ let schema = yup.object().shape({
 
 const AddBlog = () => {
     const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const getBlogId = location.pathname.split("/")[3];
   const imgState = useSelector((state) => state.upload.images);
@@ -67,7 +66,7 @@ const AddBlog = () => {
     },
   });
 
-  const img = [];
+  const img = useMemo(() => [], []);
 
   useEffect(() => {
     if (getBlogId !== undefined) {

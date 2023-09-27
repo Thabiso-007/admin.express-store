@@ -10,7 +10,7 @@ const getCoupons = async () => {
 };
 
 const createCoupons = async (coupon) => {
-  const response = await axios.post(`${url}api/coupon/`, coupon, config);
+  const response = await axios.post(`${url}api/coupon/create`, coupon, config);
 
   return response.data;
 };

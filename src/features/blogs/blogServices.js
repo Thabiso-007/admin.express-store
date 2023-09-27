@@ -3,20 +3,20 @@ import { url } from "../../utils/url";
 import { config } from "../../config/axiosConfig";
 
 const getBlogs = async () => {
-  const response = await axios.get(`${url}/api/blog/`);
+  const response = await axios.get(`${url}api/blog/`);
 
   return response.data;
 };
 
 const createBlog = async (blog) => {
-  const response = await axios.post(`${url}/api/blog/create`, blog, config);
+  const response = await axios.post(`${url}api/blog/create`, blog, config);
 
   return response.data;
 };
 
 const updateBlog = async (blog) => {
   const response = await axios.put(
-    `${url}/api/blog/${blog.id}`,
+    `${url}api/blog/${blog.id}`,
     {
       title: blog.blogData.title,
       description: blog.blogData.description,

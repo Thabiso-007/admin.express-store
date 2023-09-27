@@ -1,42 +1,182 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
+
+import { delImg, uploadImg } from "../../features/uploads/uploadSlice";
+import { getCategories } from "../../features/blog-category/blogCategorySlice";
+import {
+    createBlogs,
+    getABlog,
+    resetState,
+    updateABlog,
+  } from "../../features/blogs/blogSlice";
+
+let schema = yup.object().shape({
+    title: yup.string().required("Title is Required"),
+    description: yup.string().required("Description is Required"),
+    category: yup.string().required("Category is Required"),
+  });
 
 const AddBlog = () => {
+    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const getBlogId = location.pathname.split("/")[3];
+  const imgState = useSelector((state) => state.upload.images);
+  const bCatState = useSelector((state) => state.blogCat.bCategories);
+  const blogState = useSelector((state) => state.blog);
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    createdBlog,
+    blogName,
+    blogDesc,
+    blogCategory,
+    blogImages,
+    updatedBlog,
+  } = blogState;
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      title: blogName || "",
+      description: blogDesc || "",
+      category: blogCategory || "",
+      images: "",
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      if (getBlogId !== undefined) {
+        const data = { id: getBlogId, blogData: values };
+        dispatch(updateABlog(data));
+        dispatch(resetState());
+      } else {
+        dispatch(createBlogs(values));
+        formik.resetForm();
+        setTimeout(() => {
+          dispatch(resetState());
+        }, 300);
+      }
+    },
+  });
+
+  const img = [];
+
+  useEffect(() => {
+    if (getBlogId !== undefined) {
+      dispatch(getABlog(getBlogId));
+      img.push(blogImages);
+    } else {
+      dispatch(resetState());
+    }
+  }, [getBlogId, dispatch, blogImages, img]);
+
+  useEffect(() => {
+    dispatch(resetState());
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isSuccess && createdBlog) {
+      toast.success("Blog Added Successfullly!");
+    }
+    if (isSuccess && updatedBlog) {
+      toast.success("Blog Updated Successfullly!");
+    }
+    if (isError) {
+      toast.error("Something Went Wrong!");
+    }
+  }, [isSuccess, isError, isLoading, createdBlog, updatedBlog]);
+
+  useEffect(() => {
+    formik.values.images = img;
+  }, [blogImages, img, formik.values]);
+
+  
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
+
   return (
     <>
         <div className="text-center">
-          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBlog" data-bs-whatever="@getbootstrap">Add Blog</button>
+          <button 
+            type="button" 
+            className="btn btn-primary" 
+            data-bs-toggle="modal" 
+            data-bs-target="#blog" 
+            data-bs-whatever="@getbootstrap"
+            >
+              {getBlogId !== undefined ? "Edit" : "Add"} Blog
+            </button>
         </div>
-        <div className="modal fade" id="addBlog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="blog" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Add Blog</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">{getBlogId !== undefined ? "Edit" : "Add"} Blog</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <form>
+                        <form onSubmit={formik.handleSubmit}>
                             <div className="mb-3">
-                                <label for="category-name" className="col-form-label">Enter blog name:</label>
-                                <input type="text" className="form-control" id="category-name" />
+                                <label htmlFor="category-name" className="col-form-label">Enter blog name:</label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="category-name"
+                                    onChange={formik.handleChange("title")}
+                                    onBlur={formik.handleBlur("title")}
+                                    value={formik.values.title}
+                                />
+                            </div>
+                            <div className="error">
+                                {formik.touched.title && formik.errors.title}
                             </div>
                             <select
                                 name="category"
                                 className="form-control py-3  mt-3"
                                 id=""
+                                onChange={formik.handleChange("category")}
+                                onBlur={formik.handleBlur("category")}
+                                value={formik.values.category}
                             >
-                                <option value="">Select Blog</option>
-                                <option value=''>Blog 1</option>
+                                <option value="">Select Blog Category</option>
+                                {bCatState.map((i, j) => {
+                                    return (
+                                        <option key={j} value={i.title}>
+                                            {i.title}
+                                        </option>
+                                    );
+                                })}
                             </select>
+                            <div className="error">
+                                {formik.touched.category && formik.errors.category}
+                            </div>
                             <ReactQuill
                                 theme="snow"
                                 className="mt-3"
                                 name="description"
+                                onChange={formik.handleChange("description")}
+                                value={formik.values.description}
                             />
+                            <div className="error">
+                                {formik.touched.description && formik.errors.description}
+                            </div>
                             <div className="bg-white border-1 p-5 text-center mt-3">
-                                <Dropzone>
+                                <Dropzone
+                                    onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+                                >
                                     {({ getRootProps, getInputProps }) => (
                                         <section>
                                             <div {...getRootProps()}>
@@ -50,20 +190,29 @@ const AddBlog = () => {
                                 </Dropzone>
                             </div>
                             <div className="showimages d-flex flex-wrap mt-3 gap-3">
-                                <div className=" position-relative">
-                                    <button
-                                        type="button"   
-                                        className="btn-close position-absolute"
-                                        style={{ top: "10px", right: "10px" }}
-                                    ></button>
-                                    <img src={'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80'} alt="" width={200} height={200} />
-                                </div>
+                                {imgState?.map((i, j) => {
+                                    return (
+                                        <div className=" position-relative" key={j}>
+                                            <button
+                                                type="button"
+                                                onClick={() => dispatch(delImg(i.public_id))}
+                                                className="btn-close position-absolute"
+                                                style={{ top: "10px", right: "10px" }}
+                                            ></button>
+                                            <img src={i.url} alt="" width={200} height={200} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button 
+                                  type="button" 
+                                  className="btn btn-primary">
+                                    {getBlogId !== undefined ? "Edit" : "Add"} Blog
+                                  </button>
                             </div>
                         </form>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Add Blog</button>
                     </div>
                 </div>
             </div>

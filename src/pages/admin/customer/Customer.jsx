@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 
 import Meta from '../../../components/meta/Meta'
+import { getUsers } from "../../../features/customer/customerSlice";
 
 const columns = [
   {
@@ -25,15 +27,23 @@ const columns = [
 
 
 const Customer = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  const customerstate = useSelector((state) => state.customer.customers);
   const data1 = [];
-  for (let i = 0; i < 3; i++) {
-    
+  for (let i = 0; i < customerstate.length; i++) {
+    if (customerstate[i].role !== "admin") {
       data1.push({
         key: i + 1,
-        name: "Thabiso Hlatshwayo",
-        email: "thabiso.hlatshwayo24@gmail.com",
-        mobile: "0614567028",
+        name: customerstate[i].firstName + " " + customerstate[i].lastName,
+        email: customerstate[i].email,
+        mobile: customerstate[i].mobile,
       });
+    }
   }
 
   return (

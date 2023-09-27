@@ -1,29 +1,122 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+import {
+  createColor,
+  getAColor,
+  resetState,
+  updateAColor,
+} from "../../features/color/colorSlice";
+
+let schema = yup.object().shape({
+  title: yup.string().required("Color is Required"),
+});
 
 const AddColor = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const getColorId = location.pathname.split("/")[3];
+
+  const newColor = useSelector((state) => state.color);
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    createdColor,
+    updatedColor,
+    colorName,
+  } = newColor;
+
+  useEffect(() => {
+    if (getColorId !== undefined) {
+      dispatch(getAColor(getColorId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getColorId, dispatch]);
+
+  useEffect(() => {
+    if (isSuccess && createdColor) {
+      toast.success("Color Added Successfullly!");
+    }
+    if (isSuccess && updatedColor) {
+      toast.success("Color Updated Successfullly!");
+    }
+    if (isError) {
+      toast.error("Something Went Wrong!");
+    }
+  }, [isSuccess, isError, isLoading, createdColor, updatedColor]);
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      title: colorName || "",
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      if (getColorId !== undefined) {
+        const data = { id: getColorId, colorData: values };
+        dispatch(updateAColor(data));
+        dispatch(resetState());
+      } else {
+        dispatch(createColor(values));
+        formik.resetForm();
+        setTimeout(() => {
+          dispatch(resetState());
+        }, 300);
+      }
+    },
+  });
+
   return (
     <>
         <div className="text-center">
-          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategory" data-bs-whatever="@getbootstrap">Add Color</button>
+          <button 
+            type="button" 
+            className="btn btn-primary" 
+            data-bs-toggle="modal"
+            data-bs-target="#category" 
+            data-bs-whatever="@getbootstrap"
+          >
+            {getColorId !== undefined ? "Edit" : "Add"} Color
+          </button>
         </div>
-        <div className="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="category" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Add Color</h5>
+                <h5 className="modal-title" id="exampleModalLabel">{getColorId !== undefined ? "Edit" : "Add"} Color</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <form>
+                <form onSubmit={formik.handleSubmit}> 
                   <div className="mb-3">
-                    <label for="category-name" className="col-form-label">Enter color product:</label>
-                    <input type="color" className="form-control" id="category-name" />
+                    <label htmlFor="category-name" className="col-form-label">Enter color product:</label>
+                    <input 
+                      type="color" 
+                      className="form-control" 
+                      id="category-name"
+                      onChange={formik.handleChange("title")}
+                      onBlur={formik.handleBlur("title")}
+                      value={formik.values.title}
+                    />
                   </div>
-                </form>
+                  <div className="error">
+                    {formik.touched.title && formik.errors.title}
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button 
+                      type="button" 
+                      className="btn btn-primary">
+                        {getColorId !== undefined ? "Edit" : "Add"} Color
+                      </button>
               </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Add Color</button>
+                </form>
               </div>
             </div>
           </div>

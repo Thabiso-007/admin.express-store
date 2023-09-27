@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import Meta from '../../../components/meta/Meta'
 import AddCoupon from '../../../components/add-coupon/AddCoupon'
+import { deleteACoupon, getAllCoupon } from "../../../features/coupon/couponSlice";
+import CustomModal from '../../../components/modal/CustomModal';
 
 const columns = [
   {
@@ -35,23 +38,39 @@ const columns = [
 ];
 
 const Coupons = () => {
+  const [open, setOpen] = useState(false);
+  const [couponId, setcouponId] = useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setcouponId(e);
+  };
+
+  const hideModal = () => {
+    setOpen(false);
+  };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCoupon());
+  }, [dispatch]);
+  const couponState = useSelector((state) => state.coupon.coupons);
   const data1 = [];
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < couponState.length; i++) {
     data1.push({
       key: i + 1,
-      name: "Laptop",
-      discount: "10%",
-      expiry: "12/12/2025",
+      name: couponState[i].name,
+      discount: couponState[i].discount,
+      expiry: new Date(couponState[i].expiry).toLocaleString(),
       action: (
         <>
           <Link
-            to={''}
+            to={`/admin/coupon/${couponState[i]._id}`}
             className=" fs-3 text-danger"
           >
             <BiEdit />
           </Link>
           <button
             className="ms-3 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(couponState[i]._id)}
           >
             <AiFillDelete />
           </button>
@@ -59,7 +78,14 @@ const Coupons = () => {
       ),
     });
   }
+  const deleteCoupon = (e) => {
+    dispatch(deleteACoupon(e));
 
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getAllCoupon());
+    }, 100);
+  };
   return (
     <>
       <Meta title="Coupons" />
@@ -71,6 +97,14 @@ const Coupons = () => {
           <div>
             <Table columns={columns} dataSource={data1} />
           </div>
+          <CustomModal
+            hideModal={hideModal}
+            open={open}
+            performAction={() => {
+              deleteCoupon(couponId);
+            }}
+            title="Are you sure you want to delete this Coupon?"
+        />
         </div>
       </div>
     </>

@@ -16,10 +16,10 @@ const initialState = {
 };
 
 export const login = createAsyncThunk(
-  "auth/login",
-  async (userData, thunkAPI) => {
+  "user/admin- login",
+  async (values, thunkAPI) => {
     try {
-      return await authService.login(userData);
+      return await authService.login(values);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -56,6 +56,10 @@ export const authSlice = createSlice({
     buildeer
       .addCase(login.pending, (state) => {
         state.isLoading = true;
+        state.user = null;
+        state.isError = null;
+        state.message = null;
+        state.isSuccess = null; 
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isError = false;
@@ -68,6 +72,7 @@ export const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
+        console.log(state.isError)
         state.isLoading = false;
       })
       .addCase(getOrders.pending, (state) => {

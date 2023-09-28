@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 
 import {
@@ -11,10 +10,7 @@ import {
   resetState,
   updateABrand,
 } from "../../features/brand/brandSlice";
-
-let schema = yup.object().shape({
-  title: yup.string().required("Brand Name is Required"),
-});
+import { brandSchema } from '../../utils/validation';
 
 const AddBrand = () => {
   const dispatch = useDispatch();
@@ -56,7 +52,7 @@ const AddBrand = () => {
     initialValues: {
       title: brandName || "",
     },
-    validationSchema: schema,
+    validationSchema: brandSchema,
     onSubmit: (values) => {
       if (getBrandId !== undefined) {
         const data = { id: getBrandId, brandData: values };
@@ -85,7 +81,7 @@ const AddBrand = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <form onSubmit={formik.handleSubmit}>
+                <form>
                   <div className="mb-3">
                     <label htmlFor="brand" className="col-form-label">Enter Brand name:</label>
                     <input 
@@ -100,7 +96,7 @@ const AddBrand = () => {
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Add Brand</button>
+                    <button type="button" className="btn btn-primary" onClick={formik.handleSubmit}>Add Brand</button>
                   </div>
                 </form>
               </div>

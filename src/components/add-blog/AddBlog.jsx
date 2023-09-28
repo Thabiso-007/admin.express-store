@@ -3,7 +3,6 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -15,13 +14,8 @@ import {
     getABlog,
     resetState,
     updateABlog,
-  } from "../../features/blogs/blogSlice";
-
-let schema = yup.object().shape({
-    title: yup.string().required("Title is Required"),
-    description: yup.string().required("Description is Required"),
-    category: yup.string().required("Category is Required"),
-  });
+} from "../../features/blogs/blogSlice";
+import { blogSchema } from '../../utils/validation';
 
 const AddBlog = () => {
     const dispatch = useDispatch();
@@ -50,7 +44,7 @@ const AddBlog = () => {
       category: blogCategory || "",
       images: "",
     },
-    validationSchema: schema,
+    validationSchema: blogSchema,
     onSubmit: (values) => {
       if (getBlogId !== undefined) {
         const data = { id: getBlogId, blogData: values };
@@ -127,7 +121,7 @@ const AddBlog = () => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <form onSubmit={formik.handleSubmit}>
+                        <form>
                             <div className="mb-3">
                                 <label htmlFor="category-name" className="col-form-label">Enter blog name:</label>
                                 <input 
@@ -207,7 +201,9 @@ const AddBlog = () => {
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button 
                                   type="button" 
-                                  className="btn btn-primary">
+                                  className="btn btn-primary"
+                                  onClick={formik.handleSubmit}
+                                >
                                     {getBlogId !== undefined ? "Edit" : "Add"} Blog
                                   </button>
                             </div>

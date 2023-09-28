@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 
 import {
@@ -11,10 +10,7 @@ import {
   resetState,
   updateABlogCat,
 } from "../../features/blog-category/blogCategorySlice";
-
-let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
-});
+import { blogCategorySchema } from '../../utils/validation';
 
 const AddBlogCategry = () => {
   const dispatch = useDispatch();
@@ -56,7 +52,7 @@ const AddBlogCategry = () => {
     initialValues: {
       title: blogCatName || "",
     },
-    validationSchema: schema,
+    validationSchema: blogCategorySchema,
     onSubmit: (values) => {
       const data = { id: getBlogCatId, blogCatData: values };
       if (getBlogCatId !== undefined) {
@@ -91,7 +87,7 @@ const AddBlogCategry = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <form onSubmit={formik.handleSubmit}>
+                <form>
                   <div className="mb-3">
                     <label htmlFor="category-name" className="col-form-label">Enter blog category name:</label>
                     <input 
@@ -108,7 +104,7 @@ const AddBlogCategry = () => {
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary" onClick={formik.handleSubmit}>
                       {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Category
                     </button>
                   </div>

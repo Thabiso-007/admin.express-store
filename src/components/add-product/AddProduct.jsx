@@ -3,7 +3,6 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Select } from "antd";
@@ -13,20 +12,7 @@ import { getCategories } from "../../features/category/categorySlice";
 import { getColors } from "../../features/color/colorSlice";
 import { delImg, uploadImg } from "../../features/uploads/uploadSlice";
 import { createProducts, resetState } from "../../features/product/productSlice";
-
-let schema = yup.object().shape({
-  title: yup.string().required("Title is Required"),
-  description: yup.string().required("Description is Required"),
-  price: yup.number().required("Price is Required"),
-  brand: yup.string().required("Brand is Required"),
-  category: yup.string().required("Category is Required"),
-  tags: yup.string().required("Tag is Required"),
-  color: yup
-    .array()
-    .min(1, "Pick at least one color")
-    .required("Color is Required"),
-  quantity: yup.number().required("Quantity is Required"),
-});
+import { productSchema } from '../../utils/validation';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -83,7 +69,7 @@ const AddProduct = () => {
       quantity: "",
       images: "",
     },
-    validationSchema: schema,
+    validationSchema: productSchema,
     onSubmit: (values) => {
       dispatch(createProducts(values));
       formik.resetForm();
@@ -121,7 +107,7 @@ const AddProduct = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <form onSubmit={formik.handleSubmit}>
+                <form>
                   <div className="mb-3">
                     <label htmlFor="product-title" className="col-form-label">Enter Product Title:</label>
                     <input 
@@ -286,7 +272,7 @@ const AddProduct = () => {
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Add Product</button>
+                    <button type="button" className="btn btn-primary" onClick={formik.handleSubmit}>Add Product</button>
                   </div>
                 </form>
               </div>

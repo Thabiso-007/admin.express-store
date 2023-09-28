@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 
 import {
@@ -11,10 +10,7 @@ import {
   resetState,
   updateAColor,
 } from "../../features/color/colorSlice";
-
-let schema = yup.object().shape({
-  title: yup.string().required("Color is Required"),
-});
+import { colorSchema } from '../../utils/validation';
 
 const AddColor = () => {
   const dispatch = useDispatch();
@@ -56,7 +52,7 @@ const AddColor = () => {
     initialValues: {
       title: colorName || "",
     },
-    validationSchema: schema,
+    validationSchema: colorSchema,
     onSubmit: (values) => {
       if (getColorId !== undefined) {
         const data = { id: getColorId, colorData: values };
@@ -93,7 +89,7 @@ const AddColor = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <form onSubmit={formik.handleSubmit}> 
+                <form> 
                   <div className="mb-3">
                     <label htmlFor="category-name" className="col-form-label">Enter color product:</label>
                     <input 
@@ -112,10 +108,12 @@ const AddColor = () => {
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button 
                       type="button" 
-                      className="btn btn-primary">
-                        {getColorId !== undefined ? "Edit" : "Add"} Color
-                      </button>
-              </div>
+                      className="btn btn-primary"
+                      onClick={formik.handleSubmit}
+                    >
+                      {getColorId !== undefined ? "Edit" : "Add"} Color
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>

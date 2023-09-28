@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 
 import {
@@ -11,10 +10,7 @@ import {
   resetState,
   updateAProductCategory,
 } from "../../features/category/categorySlice";
-
-let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
-});
+import { categorySchema } from '../../utils/validation';
 
 const AddCategory = () => {
   const dispatch = useDispatch();
@@ -56,7 +52,7 @@ const AddCategory = () => {
     initialValues: {
       title: categoryName || "",
     },
-    validationSchema: schema,
+    validationSchema: categorySchema,
     onSubmit: (values) => {
       if (getPCatId !== undefined) {
         const data = { id: getPCatId, pCatData: values };

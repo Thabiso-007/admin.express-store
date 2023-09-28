@@ -3,7 +3,6 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -15,13 +14,8 @@ import {
     getABlog,
     resetState,
     updateABlog,
-  } from "../../features/blogs/blogSlice";
-
-let schema = yup.object().shape({
-    title: yup.string().required("Title is Required"),
-    description: yup.string().required("Description is Required"),
-    category: yup.string().required("Category is Required"),
-  });
+} from "../../features/blogs/blogSlice";
+import { blogSchema } from '../../utils/validation';
 
 const AddBlog = () => {
     const dispatch = useDispatch();
@@ -50,7 +44,7 @@ const AddBlog = () => {
       category: blogCategory || "",
       images: "",
     },
-    validationSchema: schema,
+    validationSchema: blogSchema,
     onSubmit: (values) => {
       if (getBlogId !== undefined) {
         const data = { id: getBlogId, blogData: values };

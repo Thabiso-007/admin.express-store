@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 
 import {
@@ -11,10 +10,7 @@ import {
   resetState,
   updateAColor,
 } from "../../features/color/colorSlice";
-
-let schema = yup.object().shape({
-  title: yup.string().required("Color is Required"),
-});
+import { colorSchema } from '../../utils/validation';
 
 const AddColor = () => {
   const dispatch = useDispatch();
@@ -56,7 +52,7 @@ const AddColor = () => {
     initialValues: {
       title: colorName || "",
     },
-    validationSchema: schema,
+    validationSchema: colorSchema,
     onSubmit: (values) => {
       if (getColorId !== undefined) {
         const data = { id: getColorId, colorData: values };

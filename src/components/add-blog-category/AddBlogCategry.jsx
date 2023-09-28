@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 
 import {
@@ -11,10 +10,7 @@ import {
   resetState,
   updateABlogCat,
 } from "../../features/blog-category/blogCategorySlice";
-
-let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
-});
+import { blogCategorySchema } from '../../utils/validation';
 
 const AddBlogCategry = () => {
   const dispatch = useDispatch();
@@ -56,7 +52,7 @@ const AddBlogCategry = () => {
     initialValues: {
       title: blogCatName || "",
     },
-    validationSchema: schema,
+    validationSchema: blogCategorySchema,
     onSubmit: (values) => {
       const data = { id: getBlogCatId, blogCatData: values };
       if (getBlogCatId !== undefined) {

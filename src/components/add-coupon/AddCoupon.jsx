@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,12 +10,7 @@ import {
   resetState,
   updateACoupon,
 } from "../../features/coupon/couponSlice";
-
-let schema = yup.object().shape({
-  name: yup.string().required("Coupon Name is Required"),
-  expiry: yup.date().required("Expiry Date is Required"),
-  discount: yup.number().required("Discount Percentage is Required"),
-});
+import { couponSchema } from '../../utils/validation';
 
 const AddCoupon = () => {
   const dispatch = useDispatch();
@@ -68,7 +62,7 @@ const AddCoupon = () => {
       expiry: changeDateFormet(couponExpiry) || "",
       discount: couponDiscount || "",
     },
-    validationSchema: schema,
+    validationSchema: couponSchema,
     onSubmit: (values) => {
       if (getCouponId !== undefined) {
         const data = { id: getCouponId, couponData: values };

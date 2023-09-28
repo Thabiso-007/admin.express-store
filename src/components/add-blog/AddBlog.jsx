@@ -121,7 +121,7 @@ const AddBlog = () => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <form onSubmit={formik.handleSubmit}>
+                        <form>
                             <div className="mb-3">
                                 <label htmlFor="category-name" className="col-form-label">Enter blog name:</label>
                                 <input 
@@ -201,7 +201,9 @@ const AddBlog = () => {
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button 
                                   type="button" 
-                                  className="btn btn-primary">
+                                  className="btn btn-primary"
+                                  onClick={formik.handleSubmit}
+                                >
                                     {getBlogId !== undefined ? "Edit" : "Add"} Blog
                                   </button>
                             </div>

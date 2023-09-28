@@ -1,12 +1,9 @@
 import * as yup from "yup";
 
 // login schema
-export let loginSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Email should be valid")
-      .required("Email is Required"),
-    password: yup.string().required("Password is Required"),
+export let loginSchema  = yup.object({
+    email: yup.string().email("Email should be valid.").required("Email is required."),
+    password: yup.string().required("Password is required."),
 });
 
 // blog schema

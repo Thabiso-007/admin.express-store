@@ -87,7 +87,7 @@ const AddCategory = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <form onSubmit={formik.handleSubmit}>
+                <form>
                   <div className="mb-3">
                     <label htmlFor="category-name" className="col-form-label">Enter category name:</label>
                     <input 
@@ -107,6 +107,7 @@ const AddCategory = () => {
                     <button 
                       type="button" 
                       className="btn btn-primary"
+                      onClick={formik.handleSubmit}
                     >
                       {getPCatId !== undefined ? "Edit" : "Add"} Category
                     </button>

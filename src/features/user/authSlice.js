@@ -72,7 +72,6 @@ export const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-        console.log(state.isError)
         state.isLoading = false;
       })
       .addCase(getOrders.pending, (state) => {

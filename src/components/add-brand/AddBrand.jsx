@@ -81,7 +81,7 @@ const AddBrand = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <form onSubmit={formik.handleSubmit}>
+                <form>
                   <div className="mb-3">
                     <label htmlFor="brand" className="col-form-label">Enter Brand name:</label>
                     <input 
@@ -96,7 +96,7 @@ const AddBrand = () => {
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Add Brand</button>
+                    <button type="button" className="btn btn-primary" onClick={formik.handleSubmit}>Add Brand</button>
                   </div>
                 </form>
               </div>

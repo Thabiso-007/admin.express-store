@@ -54,3 +54,8 @@ export let productSchema = yup.object().shape({
       .required("Color is Required"),
     quantity: yup.number().required("Quantity is Required"),
 });
+
+// role schema
+export let roleSchema = yup.object().shape({
+    role: yup.string().required("Category Name is Required"),
+});

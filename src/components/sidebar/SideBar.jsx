@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
 	FaAngleRight,
 	FaAngleLeft, 
@@ -14,14 +14,30 @@ import {
 import { AiTwotoneCustomerService } from 'react-icons/ai'
 import { BiSolidCategory, BiSolidCoupon } from 'react-icons/bi'
 import { TfiLayoutListThumbAlt } from 'react-icons/tfi'
-import { MdEmail, MdAdminPanelSettings } from 'react-icons/md'
+import { MdEmail } from 'react-icons/md'
 import { IoColorFillSharp } from 'react-icons/io5'
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import logo from '../../assets/logo/logo.png';
+import { logout } from '../../features/user/authSlice';
 
 const ICON_SIZE = 10;
 
 const SideBar = ({ visible, show }) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate()
+
+	const logoutUser = () => {
+		try {
+			dispatch(logout())
+			navigate("/")	 
+			toast.success("You have successfully logged out!")
+		} catch (error) {
+			toast.error(error)
+		}
+	}
+	
   return (
     <>
 		<div className="mobile-nav">
@@ -95,11 +111,7 @@ const SideBar = ({ visible, show }) => {
 				</div>
 			</div>
 			<div className="links">
-				<NavLink to="authorities" className="nav-link">
-					<MdAdminPanelSettings size={ICON_SIZE} />
-					<span>Authorities</span> 
-				</NavLink>
-				<button  className="nav-link-btn">
+				<button  className="nav-link-btn" onClick={() => logoutUser()}>
 					<FaSignOutAlt size={ICON_SIZE} />
 					<span>Logout</span> 
 				</button>

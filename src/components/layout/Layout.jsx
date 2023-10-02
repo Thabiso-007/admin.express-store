@@ -3,8 +3,9 @@ import { Outlet } from 'react-router-dom';
 
 import SideBar from '../sidebar/SideBar';
 import ScreenWidth from '../../pages/errors/screen-width/ScreenWidth'
+import AuthError from '../../pages/errors/401/AuthError';
 
-const Layout = () => {
+const Layout = ({ user }) => {
   const [navVisible, showNavbar] = useState(false)
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -17,6 +18,7 @@ const Layout = () => {
     return () => window.removeEventListener("resize", updateWidth);
   });
 
+
   return (
     <>
       {width > 999 ? (
@@ -24,7 +26,10 @@ const Layout = () => {
           <div className="App"> 
             <SideBar visible={navVisible} show={showNavbar} />  
             <div className={!navVisible ? "page" : "page page-with-navbar"}>
-              <Outlet />
+              {user 
+                ? <Outlet /> 
+                : <AuthError />
+              }
 			      </div>  
           </div>
         </div>

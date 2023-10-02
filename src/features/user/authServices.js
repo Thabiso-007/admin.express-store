@@ -10,6 +10,12 @@ const login = async (values) => {
   }
   return response.data;
 };
+ 
+const logout = async () => {
+  const response = await axios.get(`${url}api/user/logout`, config);
+  localStorage.removeItem("user");
+  return response
+}
 
 const getOrders = async () => {
   const response = await axios.get(`${url}api/user/getallorders`, config);
@@ -29,6 +35,7 @@ const getOrder = async (id) => {
 
 const authService = {
   login,
+  logout,
   getOrders,
   getOrder,
 };

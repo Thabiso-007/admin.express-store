@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
 
 import Login from './pages/auth/login/Login';
 import ResetPassword from './pages/auth/reset-password/ResetPassword';
 import NotFound from './pages/errors/404/NotFound';
-import Layout from './components/layout/Layout';
+//import Layout from './components/layout/Layout';
 import Dashboard from './pages/admin/dashboard/Dashboard';
 import Customer from './pages/admin/customer/Customer';
 import ForgotPassword from './pages/auth/forgot-password/ForgotPassword';
@@ -16,7 +17,6 @@ import Categories from './pages/admin/categories/Categories';
 import Brand from './pages/admin/brand/Brand';
 import BlogCategories from './pages/admin/blog-categories/BlogCategories';
 import Enquiries from './pages/admin/enquiries/Enquiries';
-import Authority from './pages/admin/authorities/Authorities';
 import Coupons from './pages/admin/coupons/Coupons';
 import Colors from './pages/admin/color/Colors';
 import ViewOrder from './pages/admin/view-order/ViewOrder';
@@ -26,8 +26,14 @@ import SingleBrand from './pages/admin/single-brand/SingleBrand';
 import SingleBlogCategory from './pages/admin/single-blog-category/SingleBlogCategory';
 import SingleCoupon from './pages/admin/single-coupon/SingleCoupon';
 import SingleColor from './pages/admin/single-color/SingleColor';
+import Layout from './components/layout/Layout';
+import SingleCustomer from './pages/admin/single-customer/SingleCustomer';
+
 
 function App() {
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+
   return (
     <BrowserRouter>
       <Routes>
@@ -35,9 +41,10 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='*' element={<NotFound />} />
-        <Route path='/admin' element={<Layout />}>
+        <Route path='/admin' element={<Layout user={user} />}>
           <Route index element={<Dashboard />} />
           <Route path='customers' element={<Customer />} />
+          <Route path='customer/:id' element={<SingleCustomer />} />
           <Route path='products' element={<Products />} />
           <Route path='orders' element={<Orders />} />
           <Route path='orders/:id' element={<ViewOrder />} />
@@ -50,7 +57,6 @@ function App() {
           <Route path='blog-category/:id' element={<SingleBlogCategory />} />
           <Route path='enquiries' element={<Enquiries />} />
           <Route path='enquiries/:id' element={<ViewEnquiry />} />
-          <Route path='authorities' element={<Authority />} />
           <Route path='coupons' element={<Coupons />} />
           <Route path='coupon/:id' element={<SingleCoupon />} />
           <Route path='colors' element={<Colors />} />

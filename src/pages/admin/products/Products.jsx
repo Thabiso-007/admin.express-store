@@ -46,9 +46,10 @@ const columns = [
 
 const Products = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
   const productState = useSelector((state) => state.product.products);
 
   const data1 = [];
